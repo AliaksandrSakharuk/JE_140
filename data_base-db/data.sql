@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS orders  (
     last_name_client character varying(25) NOT NULL,
     phone_number bigint DEFAULT 0,
     volume_bonus integer DEFAULT 0,
-    bill money DEFAULT 0,
+    bill decimal DEFAULT 0,
     is_cash boolean DEFAULT false,
     data_time_request timestamp DEFAULT now()
     );
@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS detail(
     name character varying(25) NOT NULL,
     notes character varying(255) NOT NULL,
     PART_NUMBER integer DEFAULT 0,
-    PURCHASE_PRICE money DEFAULT 0,
-    SELLING_PRICE money DEFAULT 0,
+    PURCHASE_PRICE double precision,
+    SELLING_PRICE double precision,
     EXTRA_CHARGE int DEFAULT 0,
     CAR_ID bigint DEFAULT 0,
     DATA_TIME_DELIVERY timestamp DEFAULT now(),

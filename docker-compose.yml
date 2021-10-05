@@ -6,10 +6,8 @@ services:
     build: ./web-app
     image: web-app
     depends_on:
-      - databaseDB
-      - securityDB
       - database-app
-      - web-app
+      - securityDB
     ports:
       - "8001:8001"
 
@@ -19,30 +17,35 @@ services:
     image: data_base-app
     depends_on:
       - databaseDB
-      - securityDB
-      - database-app
-      - web-app
     ports:
       - "8003:8003"
 
   databaseDB:
     container_name: database
     image: postgres:13.2
-    env_file:
-      - ./data_base-db/database.env # данные для создания пользователя, которым вы будете подключаться приложением
+    environment:
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=postgres"
+      - "POSTGRES_DB=testdb"
+#    env_file:
+#      - ./data_base-db/database.env
     volumes:
-      - ./data_base-db/data.sql:/docker-entrypoint-initdb.d/data.sql # путь к скрипту для создания таблиц
-      - ./data_base-db/data:/var/lib/postgresql/data/ # путь к папке для хранения состояния данных
+      - ./data_base-db/data.sql:/docker-entrypoint-initdb.d/data.sql
+      - ./data_base-db/data:/var/lib/postgresql/data/
     ports:
       - "5438:5432"
 
   securityDB:
-    container_name: security
+    container_name: secur
     image: postgres:13.2
-    env_file:
-      - ./web-db/database.env # данные для создания пользователя, которым вы будете подключаться приложением
+    environment:
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=postgres"
+      - "POSTGRES_DB=securdb"
+#    env_file:
+#      - ./web-db/database.env
     volumes:
-      - ./web-db/security.sql:/docker-entrypoint-initdb.d/security.sql # путь к скрипту для создания таблиц
-      - ./web-db/data:/var/lib/postgresql/data/ # путь к папке для хранения состояния данных
+      - ./web-db/security.sql:/docker-entrypoint-initdb.d/security.sql
+      - ./web-db/data:/var/lib/postgresql/data/
     ports:
       - "5439:5432"

@@ -5,8 +5,8 @@ drop table if exists users_roles cascade;
 
 CREATE TABLE  IF NOT EXISTS users (
     id bigserial PRIMARY KEY,
-    login character varying(30) NOT NULL,
-    password character varying(30) NOT NULL,
+    login character varying(255) NOT NULL,
+    password character varying(255) NOT NULL,
     enabled smallint DEFAULT NULL
 );
 
@@ -23,11 +23,11 @@ CREATE TABLE  IF NOT EXISTS users_roles (
 );
 
 INSERT INTO users (login, password, enabled)
-VALUES ('reader', '$2a$10$8yzmROgpvrnUXCssDG1kV.jY51pXvFL49KKlw4yVTUv/Rnx3rZgl6', '1');
+VALUES ('reader', '$2a$10$8yzmROgpvrnUXCssDG1kV.jY51pXvFL49KKlw4yVTUv/Rnx3rZgl6', 1);
 INSERT INTO users (login, password, enabled)
-VALUES ('editor', '$2a$10$Y4uw8pVXJ19lvYKUHehyuunVjPBdaU7OEOqgxKBKgVGbWSb.rTYrC', '1');
+VALUES ('editor', '$2a$10$Y4uw8pVXJ19lvYKUHehyuunVjPBdaU7OEOqgxKBKgVGbWSb.rTYrC', 1);
 INSERT INTO users (login, password, enabled)
-VALUES ('author', '$2a$10$Ol/3irArF3e1Jw2S..appOOdNmRydi8xpBURsTCP2ZF17fXL21fUS', '1');
+VALUES ('author', '$2a$10$Ol/3irArF3e1Jw2S..appOOdNmRydi8xpBURsTCP2ZF17fXL21fUS', 1);
 
 INSERT INTO roles (role_name) VALUES ('READER');
 INSERT INTO roles (role_name) VALUES ('EDITOR');
