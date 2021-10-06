@@ -1,10 +1,9 @@
-drop table if exists positions cascade;
 drop table if exists detail cascade;
+drop table if exists car cascade;
 drop table if exists orders_worker cascade;
 drop table if exists worker cascade;
+drop table if exists positions cascade;
 drop table if exists orders cascade;
-drop table if exists car cascade;
-
 
 CREATE TABLE IF NOT EXISTS orders  (
     id bigserial PRIMARY KEY,
@@ -15,7 +14,7 @@ CREATE TABLE IF NOT EXISTS orders  (
     bill decimal DEFAULT 0,
     is_cash boolean DEFAULT false,
     data_time_request timestamp DEFAULT now()
-    );
+);
 
 CREATE TABLE IF NOT EXISTS car(
     id bigserial PRIMARY KEY,
@@ -28,31 +27,31 @@ CREATE TABLE IF NOT EXISTS car(
     DATA_TIME_START_FIX  timestamp DEFAULT now(),
     order_id bigint DEFAULT 0,
     FOREIGN KEY (order_id) REFERENCES orders(id)
-    );
+);
 
 CREATE TABLE IF NOT EXISTS detail(
     id bigserial PRIMARY KEY,
     name character varying(25) NOT NULL,
     notes character varying(255) NOT NULL,
     PART_NUMBER integer DEFAULT 0,
-    PURCHASE_PRICE double precision,
-    SELLING_PRICE double precision,
+    PURCHASE_PRICE double precision DEFAULT 0,
+    SELLING_PRICE double precision DEFAULT 0,
     EXTRA_CHARGE int DEFAULT 0,
     CAR_ID bigint DEFAULT 0,
     DATA_TIME_DELIVERY timestamp DEFAULT now(),
     FOREIGN KEY (car_id) REFERENCES car(id)
-    );
+);
 
 CREATE TABLE positions(
     id bigserial PRIMARY KEY,
-    status character varying(25) not null
+    status character varying(255) not null
 );
 
 CREATE TABLE IF NOT EXISTS worker(
     id bigserial PRIMARY KEY,
     first_name character varying(25) not null,
     second_name character varying(25) not null,
-    salary money DEFAULT 0,
+    salary double precision DEFAULT 0,
     bonus int DEFAULT 0,
     phone_number int DEFAULT 0,
     is_cheif boolean DEFAULT false,
@@ -74,7 +73,7 @@ values ('OMA', 'HR', 20, 292020202, 1500.55, true);
 INSERT INTO orders(first_name_client, last_name_client, volume_bonus, phone_number, bill, is_cash)
 values ('MATERIK', 'SALES', 10, 291111111, 15.23, false);
 INSERT INTO orders(first_name_client, last_name_client, volume_bonus, phone_number, bill, is_cash)
-values ('MILE', 'SEQURITY', 50, 292222222, 1200, true);
+values ('MILE', 'SEQURITY', 50, 292222222, 1200.00, true);
 
 INSERT INTO car(name_owner, name_car, mileage, power,  is_electro, is_hibrid, order_id)
 values('KOSTISHKO', 'ZAZ', 10000, 50, true, false, 1);
@@ -101,7 +100,7 @@ INSERT INTO positions(status) values('ASSISTANT');
 INSERT INTO positions(status) values('MECHANIСAL');
 
 INSERT INTO worker(second_name, first_name, salary, is_cheif, position_id, data_time_start_work)
-values ('KAZAK', 'VADIM', 10000.55, true, 1, '2015-09-01');
+values ('KAZAK', 'VADIM', 100.55, true, 1, '2015-09-01');
 INSERT INTO worker(second_name, first_name, salary, is_cheif, position_id, data_time_start_work)
 values ('SAKHARUK', 'ALIAKSANDR', 10.55, false, 2, '2018-01-09');
 INSERT INTO worker(second_name, first_name, salary, is_cheif, position_id, data_time_start_work)

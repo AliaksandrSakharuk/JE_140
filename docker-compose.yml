@@ -23,12 +23,8 @@ services:
   databaseDB:
     container_name: database
     image: postgres:13.2
-    environment:
-      - "POSTGRES_USER=postgres"
-      - "POSTGRES_PASSWORD=postgres"
-      - "POSTGRES_DB=testdb"
-#    env_file:
-#      - ./data_base-db/database.env
+    env_file:
+      - ./data_base-db/database.env
     volumes:
       - ./data_base-db/data.sql:/docker-entrypoint-initdb.d/data.sql
       - ./data_base-db/data:/var/lib/postgresql/data/
@@ -38,12 +34,8 @@ services:
   securityDB:
     container_name: secur
     image: postgres:13.2
-    environment:
-      - "POSTGRES_USER=postgres"
-      - "POSTGRES_PASSWORD=postgres"
-      - "POSTGRES_DB=securdb"
-#    env_file:
-#      - ./web-db/database.env
+    env_file:
+      - ./web-db/database.env
     volumes:
       - ./web-db/security.sql:/docker-entrypoint-initdb.d/security.sql
       - ./web-db/data:/var/lib/postgresql/data/
