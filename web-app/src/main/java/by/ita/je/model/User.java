@@ -19,7 +19,6 @@ public class User {
     private Long id;
     private String login;
     private String password;
-    private boolean enabled;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name ="users_roles"
